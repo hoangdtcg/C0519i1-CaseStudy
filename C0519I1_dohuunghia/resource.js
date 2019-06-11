@@ -22,7 +22,6 @@ let resource = function (game) {
     this.egg1 = new gameImage('egg1');
     this.egg2 = new gameImage('egg2');
     this.egg_popped = new gameImage('egg-popped');
-    this.shit = new gameImage('shit');
 
 
     let self = this;
@@ -34,7 +33,7 @@ let resource = function (game) {
         this.egg1.load();
         this.egg2.load();
         this.egg_popped.load();
-        this.shit.load();
+       
 
         setInterval(function () {
             self.checkAllImageLoaded(); //kiểm tra xem tất cả ảnh đã load xong chưa
@@ -48,8 +47,7 @@ let resource = function (game) {
             (this.chicken.loaded) &&
             (this.egg1.loaded) &&
             (this.egg2.loaded) &&
-            (this.egg_popped.loaded) &&
-            (this.shit.loaded)
+            (this.egg_popped.loaded)
         ) {
             this.game.resourceLoaded = true;
         }
