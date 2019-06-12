@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<style>
+    body {
+        text-align: center;
+    }
+
+    canvas {
+        background-color: aqua;
+    }
+</style>
+<body>
+<h1> Bouncing Ball</h1>
+<div id="showScore">Score = 0</div>
+<button onclick="startGame()">Star Game</button>
+<button onclick="restartGame()">Reset Game</button>
+<br><br>
+<canvas height="500" id="canvas" style="border:2px solid #d3d3d3" width="300"></canvas>
+
+<script src="Bullet.js"></script>
+<script src="Player.js"></script>
+<script src="gameBoard.js"></script>
+
+</body>
+<script>
+    let game = new gameBoard("canvas", 300, 500);
+    game.init();
+    game.draw();
+
+    log(game);
+    document.addEventListener('keydown', move);
+
+    function startGame() {
+        if (game.bullet.x === 140 && game.bullet.y === 240) {
+            main();
+        }
+    }
+    function restartGame() {
+        game.score = 0;
+        game.player.x = 110;
+        game.player.y = 480;
+        game.bullet.x = 140;
+        game.bullet.y = 240;
+        game.draw();
+    }
+
+</script>
+</html>
