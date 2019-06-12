@@ -24,8 +24,9 @@ let resource = function (game) {
     this.egg_popped = new gameImage('egg-popped');
 
 
+
     let self = this;
-    //load tất cả img
+
     this.load = function () {
         this.perched.load();
         this.basket.load();
@@ -33,7 +34,7 @@ let resource = function (game) {
         this.egg1.load();
         this.egg2.load();
         this.egg_popped.load();
-       
+
 
         setInterval(function () {
             self.checkAllImageLoaded(); //kiểm tra xem tất cả ảnh đã load xong chưa
