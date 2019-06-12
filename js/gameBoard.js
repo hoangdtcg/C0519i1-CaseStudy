@@ -9,7 +9,7 @@ let gameBoard = function(){
 
 	this.init = function(){
 		this.canvas = document.createElement("canvas");
-		this.canvas.width  = 1250;
+		this.canvas.width  = 1420;
 		this.canvas.height = 700;
 		this.context = this.canvas.getContext("2d");
 
@@ -22,32 +22,11 @@ let gameBoard = function(){
 		this.bowl = new bowl(this);
 		this.bowl.init();
 		this.bowl.getHp();
-		this.bowl.hp = 10;
 
 		setInterval(self.createNewEgg, 1200);
 
 	};
-	// this.eggs.checkInBowl = function () {
-	// 	if ((this.game.eggs.x > this.game.bowl.x) &&
-	// 		(this.game.eggs.x <(this.game.bowl.x + this.game.resource.bowl.img.width)) &&
-	// 		(this.game.eggs.y >= 650)){
-	// 		self.eggs.splice(0,1)
-	// 	}
-	// 	else if (this.game.eggs.y > this.canvas.height){
-	// 		self.eggs.splice(0,1);
-	// 		this.bowl.hp--;
-	// 		return this.game.bowl.hp
-	// 	}
-	//
-	// };
-	this.checkRotation = function () {
-		if (self.game.eggs.y > self.canvas.height){
-			self.eggs.splice(0,1);
-			this.bowl.hp --;
-		}
-		document.write(this.bowl.hp)
 
-	};
 
 	this.start = function(){
 		this.loop();
@@ -56,7 +35,26 @@ let gameBoard = function(){
 	this.loop = function(){
 		self.update();
 		self.draw();
+		self.checkRotation();
+		self.gameOver();
 		setTimeout(self.loop, 20);
+	};
+	this.checkRotation = function () {
+		for (let i = 0; i < this.eggs.length; i++) {
+			if (this.eggs[i].checkInBowl()){
+				this.eggs[i].status = false;
+				this.eggs.splice(i, 1);
+				i--;
+			} else if (this.eggs[i].y >= this.canvas.height) {
+				if(this.eggs[i].status){
+					this.bowl.decreaseHp();
+				}
+				this.eggs.splice(i, 1);
+				i--;
+
+			}
+		}
+
 	};
 
 	this.update = function(){
@@ -68,6 +66,7 @@ let gameBoard = function(){
 			this.eggs[i].update();
 		}
 	};
+
 
 	this.draw = function(){
 		self.context.fillStyle = "pink";
@@ -89,16 +88,32 @@ let gameBoard = function(){
 		}
 	};
 
+
 	this.drawGameBoard = function(){
 		// self.eggs.checkRotation();
-		// self.drawHp();
+
 		self.drawScore();
 		self.bowl.draw();
 		self.drawEggs();
+		self.drawHp();
+	};
+	this.gameOver = function () {
+		if (this.bowl.hp === 0){
+			this.bowl.status = false;
+			alert("game over");
+			this.gameRestart()
+
+		}
+
+
+	};
+	this.gameRestart = function () {
+		location.href = location.href + "?id=" + 1000 * Math.random();
+
 	};
 
 	this.drawHp= function () {
-		return this.bowl.hp
+			return this.bowl.hp
 
 	};
 
@@ -120,12 +135,13 @@ let gameBoard = function(){
 		self.context.fillText("Score: " + this.score, 50, 50);
 	};
 
-	// this.drawHp = function () {
-	// 	self.context.fillStyle = "#ffffff";
-	// 	self.context.font = "30px Arial";
-	// 	self.context.fillText("BowlHp " + this.bowl.hp, 100, 100)
-	//
-	// }
+	this.drawHp = function () {
+		self.context.fillStyle = "#ffffff";
+		self.context.font = "30px Arial";
+		self.context.fillText("BowlHp " + this.bowl.hp, 100, 100)
+
+	};
+
 
 
 };
