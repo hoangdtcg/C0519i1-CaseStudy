@@ -6,7 +6,7 @@ let game = function () {
     this.eggs = [];
     this.perched = null;
     this.basket = null;
-    this.resourceLoaded = false; //kiểm tra tất cả ảnh đã tải xong chưa
+    this.resourceLoaded = false;
     this.score = 0;
 
     let self = this;
@@ -19,10 +19,10 @@ let game = function () {
 
         document.body.appendChild(this.canvas);
 
-        // tạo tất cả các object
         this.resource = new resource(this);
         this.perched = new perched(this);
         this.resource.load();
+
         this.chickens = [
             new chicken(this, 50, 25),
             new chicken(this, 200, 25),
@@ -49,9 +49,30 @@ let game = function () {
     this.loop = function () {
         self.update();
         self.draw();
-        setTimeout(self.loop, 20); // 50 hình trên giây
+        self.checkCrash();
+        setTimeout(self.loop, 20);
     };
 
+
+    this.checkCrash = function () {
+        for (let i = 0; i < this.eggs.length; i++){
+            if(this.eggs[i].checkInBasket()){
+                this.eggs[i].visible = false;
+                this.eggs.splice(i,1);
+                i--;
+            }
+
+            if(this.eggs[i].y >= this.canvas.height) {
+                if(this.eggs[i].visible){
+                    this.basket.decreaseHP();
+                    this.eggs[i].visible = false;
+                    this.eggs.splice(i,1);
+                    i--;
+                }
+
+            }
+        }
+    };
     this.update = function () {
         for (let i = 0; i < this.eggs.length; i++) {
             this.eggs[i].update();
@@ -69,7 +90,6 @@ let game = function () {
         }
     };
 
-    // tạo egg mới
     this.createNewEgg = function () {
         if (self.resourceLoaded) {
             let newEgg = new egg(self);
@@ -85,44 +105,48 @@ let game = function () {
         self.basket.draw();
         self.drawAllEggs();
         self.drawAllChickens();
+        self.gameOver();
     };
 
     this.drawAllEggs = function () {
-        // lặp qua từng egg rồi vẽ nó
         for (let i = 0; i < this.eggs.length; i++) {
-            this.eggs[i].draw();
+            if(this.eggs[i].visible)
+                this.eggs[i].draw();
         }
     };
 
-    // vẽ gà
     this.drawAllChickens = function () {
         for (let i = 0; i < this.chickens.length; i++) {
             this.chickens[i].draw();
         }
     };
 
-    // vẽ loading
     this.drawLoading = function () {
         self.context.fillStyle = '#ffffff';
         self.context.font = '30px Arial';
         self.context.fillText('Loading...', 100, 100);
     };
 
-    // vẽ score
     this.drawScore = function () {
         self.context.fillStyle = '#ffffff';
         self.context.font = '30px Arial';
         self.context.fillText('Score: ' + this.score, 150, 200);
     };
 
-    // vẽ HP
     this.drawHP = function () {
         self.context.fillStyle = '#ffffff';
         self.context.font = '30px Arial';
         self.context.fillText('HP: ' + this.basket.hp, 1200, 200);
     };
 
-    // this.gameOver = function () {
-    //     if()
-    // }
+    this.drawGameOver = function () {
+        self.context.fillStyle = '#ffffff';
+        self.context.font = '30px Arial';
+        self.context.fillText('GameOver', 600, 300);
+    };
+    this.gameOver = function () {
+        if(this.basket.hp === 0){
+            self.drawGameOver();
+        }
+    }
 };
