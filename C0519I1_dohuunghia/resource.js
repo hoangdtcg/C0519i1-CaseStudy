@@ -21,7 +21,7 @@ let resource = function (game) {
     this.chicken = new gameImage('chicken');
     this.egg1 = new gameImage('egg1');
     this.egg2 = new gameImage('egg2');
-    this.egg_popped = new gameImage('egg-popped');
+    this.egg_popped = new gameImage('egg_popped');
 
 
 
