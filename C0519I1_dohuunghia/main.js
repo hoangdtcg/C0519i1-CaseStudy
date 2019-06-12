@@ -144,7 +144,7 @@ let game = function () {
         self.context.font = '30px Arial';
         self.context.fillText('GameOver', 600, 300);
     };
-   this.gameOver = function () {
+    this.gameOver = function () {
         if(this.basket.hp === 0){
             this.basket.status = false;
             self.drawGameOver();
