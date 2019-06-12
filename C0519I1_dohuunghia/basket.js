@@ -4,6 +4,7 @@ let basket = function (game) {
     this.y = 700;
     this.hp = 10;
     let self = this;
+    this.status = true;
 
     this.init = function () {
         this.game.canvas.addEventListener('mousemove', function (event) {
