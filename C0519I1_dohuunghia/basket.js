@@ -24,9 +24,7 @@ let basket = function (game) {
         );
     };
 
-    this.dreaseHP = function (eggPopped) {
-        if (eggPopped) {
-            self.hp -= 2;
-        }
+    this.decreaseHP = function () {
+       self.hp -= 1;
     };
 };
