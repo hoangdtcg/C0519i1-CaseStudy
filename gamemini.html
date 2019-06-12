@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Hứng Trứng</title>
+
+</head>
+<body>
+<canvas id="canvas" style="width: 500px;height: 500px;border: 1px solid black"></canvas>
+<script src="../js/egg.js"></script>
+<script src="../js/phayer.js"></script>
+<script src="../js/gameboard.js"></script>
+</body>
+<script>
+    let game = new Gameboard("canvas",500,500);
+    game.init();
+    main();
+    document.addEventListener("keydown", move);
+
+</script>
+</html>
