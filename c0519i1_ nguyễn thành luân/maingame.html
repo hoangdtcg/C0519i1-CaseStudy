@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>game hứng bia</title>
+</head>
+<canvas id="canvas" width="900" height="700" style="border:2px solid #000000;"></canvas>
+<body>
+<script src="người chơi.js"></script>
+<script src="bia.js"></script>
+<script src="boardgame.js" ></script>
+</body>
+<script>
+  let game = new Gameboard("canvas",900,500);
+  game.init();
+  main();
+
+</script>
+</html>
