@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+        <style>
+            canvas{
+                background-color: bisque;
+            }
+            body{
+                text-align: center;
+                background-color: cornsilk ;
+            }
+        </style>
+<body>
+            <canvas id="myCanvas" width="600" height="600" style="border: solid red"></canvas>
+            <script src="Ball.js"></script>
+            <script src="Player.js"></script>
+            <script src="Game.js"></script>
+
+                <script>
+                    let game = new Game("myCanvas",600,600);
+                    game.init();
+                    main();
+                </script>
+</body>
+</html>
